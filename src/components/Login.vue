@@ -1,49 +1,57 @@
 <template>
-
+<div class="app">
+ <div class="header">
+    <Header></Header>
+ </div>
   <div class="card">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
-   <h1 class="title">Resistration</h1>
+   <h1 class="title">Login</h1>
    <div class="form">
-     <i class="fi-torso"></i><input type="text" placeholder="Username" class="input" v-model="user_name" /><div class="underline"></div><br>
-     <i class="fi-mail"></i><input type="email" placeholder="Email" class="input" v-model="email" /><div class="underline"></div><br>
-     <i class="fi-lock"></i><input type="password" placeholder="Password" class="input" v-model="password" /><div class="underline"></div><br>
-     <button class="button" @click="registration">登録</button>
+     <i class="fi-mail"></i><input type="email" placeholder="Email" class="input" v-model="email"><div class="underline"></div><br>
+     <i class="fi-lock"></i><input type="password" placeholder="Password" class="input" v-model="password"><div class="underline"></div><br>
+     <button class="button" @click="login">ログイン</button>
    </div>
  </div>
+</div>
 </template>
 
 <script>
 import axios from "axios";
+import Header from "../components/Header";
 export default {
+  components:{
+    Header
+  },
   data(){
     return{
-      user_name:"",
       email:"",
-      password:"",
+      password:""
     };
   },
   methods:{
-    registration(){
+    login(){
       axios
-      .post("http://localhost:8080/api/v1/users/registration",{
-        user_name:this.user_name,
+      .post("http://localhost:8001/api/v1/login",{
         email:this.email,
         password:this.password
       })
       .then(response=>{
         console.log(response);
-        this.$router.replace("/thankspage")
+        this.$router.replace("/")
       })
       .catch(error=>{
         alert(error);
       });
-    }
   }
-};
+ }
 
+  
+};
 </script>
 
-<style>
+<style scoped>
+
+
 .card{
   box-shadow: 5px 5px 10px;
   border-radius: 10px;

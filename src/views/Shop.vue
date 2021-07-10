@@ -3,6 +3,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
   <div class="header">
     <Header></Header>
+    <p class="username">{{this.$store.state.user}}</p>
   </div>
  <div class="wrap">
    <div class="shop">
@@ -11,7 +12,7 @@
          <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt="shopimage" class="img">
        </div>
        <div class="all">
-         <a>お店の名前</a><br>
+         <!-- <a v-for="item in shop" :key="item">{{item.name}}</a><br> -->
          <div class="detail">
            <a>#エリア</a>
            <a>#ジャンル</a>
@@ -84,6 +85,7 @@
 </template>
 
 <script>
+// import axios from 'axios';
 import Header from "../components/Header.vue"
 export default {
   components:{
@@ -100,8 +102,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin-left: auto;
-  margin-right: auto;
 }
 .all{
   text-align: left;

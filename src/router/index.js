@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Registration from '../views/Registration.vue'
-import Login from '../views/Login.vue'
+import Registration from '../components/Registration.vue'
+import Login from '../components/Login.vue'
 import Shop from '../views/Shop.vue'
-import Thankspage from '../views/Thankspage.vue'
+import Thankspage from '../components/Thankspage.vue'
+import Detail from '../components/Detail.vue'
+import Mypage from '../components/Mypage.vue'
 
 
 Vue.use(VueRouter)
@@ -21,7 +23,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/shop',
+    path: '/',
     name: 'Shop',
     component: Shop
   },
@@ -29,6 +31,16 @@ const routes = [
     path: '/thankspage',
     name: 'thanks',
     component: Thankspage
+  },
+  {
+    path: '/detail',
+    name: 'detail',
+    component: Detail
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: Mypage
   }
 ]
 
