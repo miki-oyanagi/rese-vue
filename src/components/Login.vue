@@ -9,7 +9,7 @@
    <div class="form">
      <i class="fi-mail"></i><input type="email" placeholder="Email" class="input" v-model="email"><div class="underline"></div><br>
      <i class="fi-lock"></i><input type="password" placeholder="Password" class="input" v-model="password"><div class="underline"></div><br>
-     <button class="button" @click="login">ログイン</button>
+     <button class="button" @click="auth">ログイン</button>
    </div>
  </div>
 </div>
@@ -24,20 +24,27 @@ export default {
   },
   data(){
     return{
+      username:"",
       email:"",
       password:""
     };
   },
   methods:{
-    login(){
+    auth(){
       axios
       .post("http://localhost:8001/api/v1/login",{
         email:this.email,
         password:this.password
+      }),
+      this.$store.dispatch("auth",{
+        username:this.username,
+        email:this.email,
+        password:this.password
       })
+      this.$router.push(this.$router.query.redirect)
       .then(response=>{
         console.log(response);
-        this.$router.replace("/")
+        this.$router.replace("/mypage")
       })
       .catch(error=>{
         alert(error);

@@ -9,8 +9,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins:[createPersistedState()],
   state: {
-    auth:"",
-    user:"",
+    username:"",
+    status:false
   },
   mutations: {
     auth(state,payload){
@@ -19,6 +19,13 @@ export default new Vuex.Store({
     user(state,payload){
       state.user = payload;
     },
+  },
+  computed:{
+    username:{
+      login(){
+        return this.$store.state.username
+      },
+    }
   },
   actions: {
     async login({commit},{email,password}){

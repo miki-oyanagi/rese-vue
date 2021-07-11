@@ -6,7 +6,7 @@
      <i class="fi-torso"></i><input type="text" placeholder="Username" class="input" v-model="user_name" /><div class="underline"></div><br>
      <i class="fi-mail"></i><input type="email" placeholder="Email" class="input" v-model="email" /><div class="underline"></div><br>
      <i class="fi-lock"></i><input type="password" placeholder="Password" class="input" v-model="password" /><div class="underline"></div><br>
-     <button class="button" @click="registration">登録</button>
+     <button class="button" @click="auth">登録</button>
    </div>
  </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     };
   },
   methods:{
-    registration(){
+    auth(){
       axios
       .post("http://localhost:8001/api/v1/users/registration",{
         user_name:this.user_name,
