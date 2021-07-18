@@ -6,6 +6,7 @@ import Shop from '../views/Shop.vue'
 import Thankspage from '../components/Thankspage.vue'
 import Detail from '../components/Detail.vue'
 import Mypage from '../components/Mypage.vue'
+import store from '../store/index'
 
 
 Vue.use(VueRouter)
@@ -47,7 +48,23 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !store.state.auth
+  ) {
+    next({
+      path: "/",
+      query: {
+        redirect: to.fullPath,
+      },
+    });
+  } else {
+    next();
+  }
+});
+
+export default router;

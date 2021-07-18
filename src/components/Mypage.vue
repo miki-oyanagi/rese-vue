@@ -3,7 +3,7 @@
   <div class="header">
     <Header></Header>
     <h2>mypage</h2>
-    <p class="username" > ログインユーザ名：{{$store.state.username}}  </p>
+    <p class="username" > ログインユーザ名：{{user_name}}  </p>
   </div>
   <div class="flex">
     <div class="reserve">
@@ -22,15 +22,12 @@
 
 <script>
 // import axios from 'axios';
-//import Header from "../components/Header";
-// export default {
-//   data(){
-//     return{
-//       active:true,
-//       name:{
-//         get(){
-//           return this.$store.state.user
-//         },
-//       }
-//     }}}
+// import Header from "../components/Header";
+export default {
+  data(){
+    return{
+      active:true,
+      user_name:this.$store.state.user.user_name,
+      };
+    }};
 </script>

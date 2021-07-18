@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import Header from "../components/Header";
 export default {
   components:{
@@ -24,36 +24,20 @@ export default {
   },
   data(){
     return{
-      username:"",
       email:"",
       password:""
     };
   },
-  methods:{
-    auth(){
-      axios
-      .post("http://localhost:8001/api/v1/login",{
-        email:this.email,
-        password:this.password
-      }),
-      this.$store.dispatch("auth",{
-        username:this.username,
-        email:this.email,
-        password:this.password
-      })
-      this.$router.push(this.$router.query.redirect)
-      .then(response=>{
-        console.log(response);
-        this.$router.replace("/mypage")
-      })
-      .catch(error=>{
-        alert(error);
+    methods: {
+    auth() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password
       });
+    }
   }
- }
-
-  
 };
+
 </script>
 
 <style scoped>

@@ -9,8 +9,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins:[createPersistedState()],
   state: {
-    username:"",
-    status:false
+    user:"",
+    auth:"",
+    // status:false
   },
   mutations: {
     auth(state,payload){
@@ -19,25 +20,21 @@ export default new Vuex.Store({
     user(state,payload){
       state.user = payload;
     },
-  },
-  computed:{
-    username:{
-      login(){
-        return this.$store.state.username
-      },
-    }
+    logout(state,payload){
+      state.auth=payload;
+    },
   },
   actions: {
     async login({commit},{email,password}){
       const responseLogin =await axios.post(
-        "http://localhost:8081/api/v1/login",
+        "http://localhost:8001/api/v1/login",
         {
           email:email,
           password:password,
         }
       );
       const responseUser =await axios.get(
-        "http://localhost:8081/api/v1/login",
+        "http://localhost:8001/api/v1/users",
         {
           params:{
             email:email,
@@ -46,7 +43,7 @@ export default new Vuex.Store({
       );
       commit("auth",responseLogin.data.auth);
       commit("user",responseUser.data.data[0]);
-      router.replace("/login")
-    }
+      router.replace("/mypage");
+    },
   },
 });
