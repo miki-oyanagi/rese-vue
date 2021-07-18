@@ -13,9 +13,11 @@ export default new Vuex.Store({
     auth:"",
     // status:false
   },
+  
   mutations: {
-    auth(state,payload){
-      state.auth=payload;
+    auth(state, payload) {
+      state.auth = payload.auth;
+      state.user = payload.user;
     },
     user(state,payload){
       state.user = payload;
@@ -41,7 +43,7 @@ export default new Vuex.Store({
           },
         }
       );
-      commit("auth",responseLogin.data.auth);
+      commit("auth", responseLogin.data);
       commit("user",responseUser.data.data[0]);
       router.replace("/mypage");
     },
