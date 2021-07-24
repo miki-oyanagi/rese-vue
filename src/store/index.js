@@ -47,5 +47,6 @@ export default new Vuex.Store({
       commit("user",responseUser.data.data[0]);
       router.replace("/mypage");
     },
+    
   },
 });

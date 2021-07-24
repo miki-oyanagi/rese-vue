@@ -3,19 +3,18 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
   <div class="header">
     <Header></Header>
-    <p class="username">{{this.$store.state.user}}</p>
   </div>
  <div class="wrap">
-   <div class="shop">
+   <div class="shop" v-for="(shop,index) in data" :key="index">
      <div class="inside">
        <div class="image">
-         <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt="shopimage" class="img">
+         <a>{{data.image}}</a>
        </div>
        <div class="all">
-         <!-- <a v-for="item in shop" :key="item">{{item.name}}</a><br> -->
          <div class="detail">
-           <a>#エリア</a>
-           <a>#ジャンル</a>
+           <a>{{shop.name}}</a>
+           <a>#{{shop.area_id}}</a>
+           <a>#{{shop.genre_id}}</a>
          </div>
          <div class="detail2">
            <button @click="gotodetail" class="button">詳しくみる</button>
@@ -85,11 +84,26 @@
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import Header from "../components/Header.vue"
 export default {
+  props:["id"],
+  data(){
+    return{
+      data:[{
+        name:[],
+      }],
+    };
+  },
+  async created(){
+     await axios.get("http://localhost:8001/api/v1/shops"
+    )
+    .then((response)=>{
+      // console.log(response);
+      this.name=response.data.name;
+    });},
   components:{
-    Header
+    Header,
   }
 }
 </script>

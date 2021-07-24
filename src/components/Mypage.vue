@@ -3,7 +3,7 @@
   <div class="header">
     <Header></Header>
     <h2>mypage</h2>
-    <p class="username" > ログインユーザ名：{{user_name}}  </p>
+    <p class="username" > ログインユーザ名：{{user_name}} さん </p>
   </div>
   <div class="flex">
     <div class="reserve">
