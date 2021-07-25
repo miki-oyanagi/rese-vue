@@ -5,16 +5,16 @@
     <Header></Header>
   </div>
  <div class="wrap">
-   <div class="shop" v-for="(shop,index) in data" :key="index">
+   <div class="shop" v-for="(shop,index) in shops" :key="index">
      <div class="inside">
        <div class="image">
-         <a>{{data.image}}</a>
+         <a><img class="img" :src="shop.image"></a>
        </div>
        <div class="all">
          <div class="detail">
            <a>{{shop.name}}</a>
-           <a>#{{shop.area_id}}</a>
-           <a>#{{shop.genre_id}}</a>
+           <a>＃{{shop.area_id}}</a>
+           <a>＃{{shop.genre_id}}</a>
          </div>
          <div class="detail2">
            <button @click="gotodetail" class="button">詳しくみる</button>
@@ -90,7 +90,7 @@ export default {
   props:["id"],
   data(){
     return{
-      data:[{
+      shops:[{
         name:[],
       }],
     };
@@ -99,9 +99,15 @@ export default {
      await axios.get("http://localhost:8001/api/v1/shops"
     )
     .then((response)=>{
-      // console.log(response);
-      this.name=response.data.name;
-    });},
+      console.log(response);
+      this.shops=response.data.data;
+      console.log(this.shops);
+    })},
+    methods:{
+      gotodetail(){
+
+      }
+    },
   components:{
     Header,
   }
