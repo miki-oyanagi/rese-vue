@@ -4,79 +4,25 @@
   <div class="header">
     <Header></Header>
   </div>
- <div class="wrap">
-   <div class="shop" v-for="(shop,index) in shops" :key="index">
-     <div class="inside">
-       <div class="image">
-         <a><img class="img" :src="shop.image"></a>
-       </div>
-       <div class="all">
-         <div class="detail">
-           <a>{{shop.name}}</a>
-           <a>＃{{shop.area_id}}</a>
-           <a>＃{{shop.genre_id}}</a>
-         </div>
-         <div class="detail2">
-           <button @click="gotodetail" class="button">詳しくみる</button>
-           <i class="fi-heart"></i>
+  <div class="wrap">
+    <div class="shop" v-for="(shop,index) in shops" :key="index">
+      <div class="inside">
+        <div class="image">
+          <a><img class="img" :src="shop.image"></a>
         </div>
-       </div>
-     </div>
-   </div>
-   <div class="shop">
-     <div class="inside">
-       <div class="image">
-         <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt="shopimage" class="img">
-       </div>
-       <div class="all">
-         <a>お店の名前</a><br>
-         <div class="detail">
-           <a>#エリア</a>
-           <a>#ジャンル</a>
-         </div>
-         <div class="detail2">
-           <button @click="gotodetail" class="button">詳しくみる</button>
-           <i class="fi-heart"></i>
+        <div class="all">
+          <div class="detail">
+            <a>{{shop.name}}</a>
+            <a v-if="shop.area">＃{{shop.area.name}}</a>
+            <a v-if="shop.genre">＃{{shop.genre.name}}</a>
+          </div>
+          <div class="detail2">
+            <button @click="gotodetail" class="button">詳しくみる</button>
+            <i class="fi-heart"></i>
+          </div>
         </div>
-       </div>
-     </div>
-   </div>
-   <div class="shop">
-     <div class="inside">
-       <div class="image">
-         <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt="shopimage" class="img">
-       </div>
-       <div class="all">
-         <a>お店の名前</a><br>
-         <div class="detail">
-           <a>#エリア</a>
-           <a>#ジャンル</a>
-         </div>
-         <div class="detail2">
-           <button @click="gotodetail" class="button">詳しくみる</button>
-           <i class="fi-heart"></i>
-        </div>
-       </div>
-     </div>
-   </div>
-   <div class="shop">
-     <div class="inside">
-       <div class="image">
-         <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt="shopimage" class="img">
-       </div>
-       <div class="all">
-         <a>お店の名前</a><br>
-         <div class="detail">
-           <a>#エリア</a>
-           <a>#ジャンル</a>
-         </div>
-         <div class="detail2">
-           <button @click="gotodetail" class="button">詳しくみる</button>
-           <i class="fi-heart"></i>
-        </div>
-       </div>
-     </div>
-   </div>
+      </div>
+    </div>
  </div>
 </div>
 
@@ -91,7 +37,7 @@ export default {
   data(){
     return{
       shops:[{
-        name:[],
+       name:[],
       }],
     };
   },
@@ -104,8 +50,8 @@ export default {
       console.log(this.shops);
     })},
     methods:{
-      gotodetail(){
-
+      async gotodetail(id){
+        this.$router.push({path: '/detail/'+id,params:{id:id}});
       }
     },
   components:{

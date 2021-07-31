@@ -34,9 +34,10 @@ const routes = [
     component: Thankspage
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'detail',
-    component: Detail
+    component: Detail,
+    props:true
   },
   {
     path: '/mypage',
