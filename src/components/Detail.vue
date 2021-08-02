@@ -24,7 +24,7 @@ export default {
   },
   async created(){
     const item =await axios.get(
-      'http://localhost:8001/api/v1/shops/{id}'
+      'http://localhost:8001/api/v1/shops/'+this.id
     );
     this.name=item.data.name;
     this.area=item.data.area.name;
