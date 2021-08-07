@@ -5,7 +5,6 @@
   <p>{{area}}</p>
   <p>{{genre}}</p>
   <p>{{detail}}</p>
-  <p>{{image}}</p>
   <a><img class="img" :src="image"></a>
 </div>
 </template>
@@ -17,21 +16,21 @@ export default {
   data(){
     return{
       name:"",
-      area:"",
-      genre:"",
-      detail:"",
-      image:""
+      // area:"",
+      // genre:"",
+      // detail:"",
+      // image:""
     };
   },
   async created(){
     const detailgetdata =await axios.get(
       'http://localhost:8001/api/v1/shops/'+this.id
     );
-    this.name=detailgetdata.data;
-    this.area=detailgetdata.data.area;
-    this.genre=detailgetdata.data.genre.name;
-    this.detail=detailgetdata.data.detail
-    this.image=detailgetdata.data.image;
+    this.name=detailgetdata.data.data[this.id].name;
+    this.area=detailgetdata.data.data[this.id].area.name;
+    this.genre=detailgetdata.data.data[this.id].genre.name;
+    this.detail=detailgetdata.data.data[this.id].detail;
+    this.image=detailgetdata.data.data[this.id].image;
   } 
 }
 </script>
