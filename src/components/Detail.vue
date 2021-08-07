@@ -6,6 +6,7 @@
   <p>{{genre}}</p>
   <p>{{detail}}</p>
   <p>{{image}}</p>
+  <a><img class="img" :src="image"></a>
 </div>
 </template>
 
@@ -23,14 +24,14 @@ export default {
     };
   },
   async created(){
-    const item =await axios.get(
+    const detailgetdata =await axios.get(
       'http://localhost:8001/api/v1/shops/'+this.id
     );
-    this.name=item.data.name;
-    this.area=item.data.area.name;
-    this.genre=item.data.genre.name;
-    this.detail=item.data.detail;
-    this.image=item.data.image;
+    this.name=detailgetdata.data;
+    this.area=detailgetdata.data.area;
+    this.genre=detailgetdata.data.genre.name;
+    this.detail=detailgetdata.data.detail
+    this.image=detailgetdata.data.image;
   } 
 }
 </script>

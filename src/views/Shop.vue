@@ -17,7 +17,7 @@
             <a v-if="shop.genre">＃{{shop.genre.name}}</a>
           </div>
           <div class="detail2">
-            <button @click="gotodetail" class="button">詳しくみる</button>
+            <button @click="gotodetail(shop)" class="button">詳しくみる</button>
             <i class="fi-heart"></i>
           </div>
         </div>
@@ -50,8 +50,8 @@ export default {
       console.log(this.shops);
     })},
     methods:{
-      async gotodetail(id){
-        this.$router.push({path: '/detail/'+id,params:{id:id}});
+      async gotodetail(shop){
+        this.$router.push({path: '/detail/'+ shop.id});
       }
     },
   components:{
