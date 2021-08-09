@@ -18,7 +18,8 @@
           </div>
           <div class="detail2">
             <button @click="gotodetail(shop)" class="button">詳しくみる</button>
-            <i class="fi-heart"></i>
+            <button class="btn-outline-warning" v-if="status == false" @click.prevent="like(shop)"><i class="fi-heart"></i></button>
+            <button class="btn-warning" v-else @click.prevent="like(shop)"><i class="fi-heart"></i></button>
           </div>
         </div>
       </div>
@@ -36,6 +37,7 @@ export default {
   props:["id"],
   data(){
     return{
+      status:false,
       shops:[{
        name:[],
       }],
@@ -52,11 +54,45 @@ export default {
     methods:{
       async gotodetail(shop){
         this.$router.push({path: '/detail/'+ shop.id});
+      },
+      like(shop){
+        axios
+        .post("http://localhost:8001/api/v1/shops/" + shop.id + "/like",{
+          user_id:this.$store.state.user.id,
+          shop_id:this.shop,
+        })
+        .then((response)=>{
+          console.log(response);
+        })
+     },
+      first_check(shop){
+        axios.get("http://localhost:8001/api/v1/shops/" + shop.id + "/like")
+        .then(response=>{
+          if(response.data[0] ==1){
+            console.log(response)
+            this.status = true
+          }else{
+            console.log(response)
+            this.status = false
+          }
+        })
+      },
+      check(shop){
+        axios.put("http://localhost:8001/api/v1/shops/" + shop.id + "/like")
+        .then(response=>{
+          if(response.data[0] == 1){
+            this.status = true
+          }else{
+            this.status = false
+          }
+        }).catch(function(error){
+          console.log(error)
+        })
       }
     },
   components:{
     Header,
-  }
+  },
 }
 </script>
 
@@ -99,8 +135,15 @@ export default {
   text-align: left;
   background-color: royalblue;
   color: aliceblue;
-  
 }
+.btn-warning{
+  color: brown;
+  border: none;
+}
+.btn-outline-warning{
+  border: none;
+}
+
 
  @media screen and (max-width: 768px) { 
 

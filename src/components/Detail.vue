@@ -1,25 +1,26 @@
 <template>
-<div class="wrap">
- <div class="left">
-   <div>
-     <Header></Header>
+<div>
+   <div class="left">
+     <div>
+       <Header></Header>
+       <a href="http://localhost:8080/" class="back">></a>
+     </div>
+     <div class="shop" v-for="(shop,index) in detaildata" :key="index">
+      <div class="wrap2">
+        <p>{{shop.name}}</p>
+      </div>
+      <a><img class="img" :src="shop.image"></a>
+      <div class="wrap3">
+        <p v-if="shop.area">＃{{shop.area.name}}</p>
+        <p v-if="shop.genre">＃{{shop.genre.name}}</p>
+      </div>
+      <p>{{shop.detail}}</p>
+    </div>
    </div>
-   <div class="wrap2">
-     <a href="http://localhost:8080/" class="back">＜</a>
-     <p>{{name}}</p>
+   <div class="right">
+     <p>予約情報をかく</p>
    </div>
-   <a><img class="img" :src="image"></a>
-   <div class="wrap3">
-     <p>＃{{area}}</p>
-     <p>＃{{genre}}</p>
-   </div>
-   <p>{{detail}}</p>
- </div>
- <div class="right">
-   <p>予約情報をかく</p>
- </div>
-
-
+ 
 </div>
 </template>
 
@@ -27,26 +28,23 @@
 import axios from "axios";
 import Header from "../components/Header.vue"
 export default {
-  props:["id"],
+props:["id"],
   data(){
     return{
+      detaildata:[{
       name:"",
-      // area:"",
-      // genre:"",
-      // detail:"",
-      // image:""
+      }],
     };
   },
   async created(){
-    const detailgetdata =await axios.get(
+    await axios.get(
       'http://localhost:8001/api/v1/shops/'+this.id
-    );
-    const detaildata=detailgetdata.data
-    this.name=detaildata.data[this.id].name;
-    this.area=detaildata.data[this.id].area.name;
-    this.genre=detaildata.data[this.id].genre.name;
-    this.detail=detaildata.data[this.id].detail;
-    this.image=detaildata.data[this.id].image;
+    )
+    .then((response)=>{
+      console.log(response);
+      this.detaildata=response.data;
+      console.log(this.detaildata);
+    })
   } ,
     components:{
     Header,
@@ -54,7 +52,7 @@ export default {
 }
 </script>
 <style scoped>
-.wrap{
+.shop{
   display: flex;
 
 }
