@@ -5,8 +5,11 @@ import Login from '../components/Login.vue'
 import Shop from '../views/Shop.vue'
 import Thankspage from '../components/Thankspage.vue'
 import Detail from '../components/Detail.vue'
+import Thanksreserve from '../components/Thanksreserve.vue'
 import Mypage from '../components/Mypage.vue'
 import store from '../store/index'
+
+
 
 
 Vue.use(VueRouter)
@@ -33,6 +36,12 @@ const routes = [
     name: 'thanks',
     component: Thankspage
   },
+  {
+    path: '/thanksreserve',
+    name: 'thanksreserve',
+    component: Thanksreserve
+  },
+
   {
     path: '/detail/:id',
     name: 'detail',

@@ -18,8 +18,13 @@
           </div>
           <div class="detail2">
             <button @click="gotodetail(shop)" class="button">詳しくみる</button>
-            <button class="btn-outline-warning" v-if="status == false" @click.prevent="like(shop)"><i class="fi-heart"></i></button>
-            <button class="btn-warning" v-else @click.prevent="like(shop)"><i class="fi-heart"></i></button>
+            <div v-if="OK">
+              <button class="btn-outline-warning"  @click.prevent="like(shop)">いいね<i class="fi-heart"></i></button>
+           </div>
+           <div v-else>
+              <button class="btn-warning" @click.prevent="like(shop)"><i class="fi-heart">いいね済</i></button>
+            <a v-if="shop.status">{{shop.status}}</a>
+           </div>
           </div>
         </div>
       </div>
@@ -37,10 +42,12 @@ export default {
   props:["id"],
   data(){
     return{
-      status:false,
       shops:[{
        name:[],
       }],
+      status:[{
+        likes:[],
+      }]
     };
   },
   async created(){
@@ -50,7 +57,18 @@ export default {
       console.log(response);
       this.shops=response.data.data;
       console.log(this.shops);
-    })},
+    }),
+     axios.get("http://localhost:8001/api/v1/likes")
+     .then((response)=>
+        {
+          console.log(response);
+          this.status=response.data.data.shop_id;
+          console.log(this.status);
+
+        }).catch(function(error){
+          console.log(error)
+        })
+    },
     methods:{
       async gotodetail(shop){
         this.$router.push({path: '/detail/'+ shop.id});
@@ -65,30 +83,21 @@ export default {
           console.log(response);
         })
      },
-      first_check(shop){
-        axios.get("http://localhost:8001/api/v1/shops/" + shop.id + "/like")
-        .then(response=>{
-          if(response.data[0] ==1){
-            console.log(response)
-            this.status = true
-          }else{
-            console.log(response)
-            this.status = false
-          }
-        })
-      },
-      check(shop){
-        axios.put("http://localhost:8001/api/v1/shops/" + shop.id + "/like")
-        .then(response=>{
-          if(response.data[0] == 1){
-            this.status = true
-          }else{
-            this.status = false
-          }
-        }).catch(function(error){
-          console.log(error)
-        })
-      }
+      // check(){
+      //   axios.get("http://localhost:8001/api/v1/likes")
+      //   // .then ((response)=>{
+      //   //   console.log(response);
+      //   // })
+      //   .then((response)=>
+      //   {
+      //     console.log(response);
+      //     this.status=response.data.shop_id,
+      //     console.log(this.status)
+
+      //   }).catch(function(error){
+      //     console.log(error)
+      //   })
+      // }
     },
   components:{
     Header,
