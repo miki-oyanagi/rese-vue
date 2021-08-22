@@ -29,7 +29,10 @@ const routes = [
   {
     path: '/',
     name: 'Shop',
-    component: Shop
+    component: Shop,
+    meta:{
+      requiresAuth:true,
+    }
   },
   {
     path: '/thankspage',

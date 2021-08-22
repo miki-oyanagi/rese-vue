@@ -18,12 +18,11 @@
           </div>
           <div class="detail2">
             <button @click="gotodetail(shop)" class="button">詳しくみる</button>
-            <div v-if="OK">
-              <button class="btn-outline-warning"  @click.prevent="like(shop)">いいね<i class="fi-heart"></i></button>
+            <div v-if="isActive(shop.id)">
+              <button class="btn-warning"  @click.prevent="dislike()">いいね済<i class="fi-heart"></i></button>
            </div>
            <div v-else>
-              <button class="btn-warning" @click.prevent="like(shop)"><i class="fi-heart">いいね済</i></button>
-            <a v-if="shop.status">{{shop.status}}</a>
+              <button class="btn-outline-warning" @click.prevent="like(shop)"><i class="fi-heart">いいね</i></button>
            </div>
           </div>
         </div>
@@ -45,8 +44,8 @@ export default {
       shops:[{
        name:[],
       }],
-      status:[{
-        likes:[],
+      likes_shops:[{
+
       }]
     };
   },
@@ -58,16 +57,20 @@ export default {
       this.shops=response.data.data;
       console.log(this.shops);
     }),
-     axios.get("http://localhost:8001/api/v1/likes")
-     .then((response)=>
-        {
-          console.log(response);
-          this.status=response.data.data.shop_id;
-          console.log(this.status);
 
-        }).catch(function(error){
-          console.log(error)
-        })
+      axios.post("http://localhost:8001/api/v1/likes",{
+        user_id:this.$store.state.user.id,
+      })
+      .then((response)=>{
+        this.likes_shops = response.data.data;
+        console.log("this.likes_shops")
+        console.log(this.likes_shops);
+        // this.$router.go({
+        //   path: this.$router.currentRoute.path,
+        //   force: true,
+        // });
+      })
+        
     },
     methods:{
       async gotodetail(shop){
@@ -81,23 +84,40 @@ export default {
         })
         .then((response)=>{
           console.log(response);
-        })
+        });
      },
-      // check(){
-      //   axios.get("http://localhost:8001/api/v1/likes")
-      //   // .then ((response)=>{
-      //   //   console.log(response);
-      //   // })
-      //   .then((response)=>
-      //   {
-      //     console.log(response);
-      //     this.status=response.data.shop_id,
-      //     console.log(this.status)
+     dislike(){
+       axios
+       .delete("http://localhost:8001/api/v1/likes",{
+         user_id:this.$store.state.user.id,
+         shop_id:this.shop.shop,
+       })
+       .then((response)=>{
+         console.log(response);
+        //  this.$router.go({
+        //     path: this.$router.currentRoute.path,
+        //     force: true,
+        //  });
+       })
 
-      //   }).catch(function(error){
-      //     console.log(error)
-      //   })
-      // }
+
+
+     },
+     isActive(shop_id){
+       console.log("shop.id")
+       console.log(shop_id)
+      // console.log("this.likes_shops")
+      //  console.log(this.likes_shops[0])
+      //  console.log(this.likes_shops.map(shop => shop.shop_id))
+       let likes_shop = this.likes_shops.map(shop => shop.shop_id);
+
+      //  console.log(likes_shop.includes(shop_id))
+if(likes_shop.includes(shop_id)){
+         return true;
+}else{
+         return false;
+}
+     }
     },
   components:{
     Header,
