@@ -63,7 +63,7 @@ export default {
       })
       .then((response)=>{
         this.likes_shops = response.data.data;
-        console.log("this.likes_shops")
+        // console.log("this.likes_shops")
         console.log(this.likes_shops);
         // this.$router.go({
         //   path: this.$router.currentRoute.path,
@@ -78,7 +78,7 @@ export default {
       },
       like(shop){
         axios
-        .post("http://localhost:8001/api/v1/shops/" + shop.id + "/like",{
+        .post("http://localhost:8001/api/v1/shops/" + shop.id + "/likes",{
           user_id:this.$store.state.user.id,
           shop_id:this.shop,
         })
@@ -89,11 +89,15 @@ export default {
      dislike(){
        axios
        .delete("http://localhost:8001/api/v1/likes",{
-         user_id:this.$store.state.user.id,
-         shop_id:this.shop.shop,
+         data:{
+           user_id:this.$store.state.user.id,
+           shop_id:this.shop,
+           }  
        })
        .then((response)=>{
-         console.log(response);
+         this.likes_shops2 =response.data;
+         console.log("this.likes_shops2");
+         console.log(this.likes_shops2);
         //  this.$router.go({
         //     path: this.$router.currentRoute.path,
         //     force: true,
@@ -106,9 +110,9 @@ export default {
      isActive(shop_id){
        console.log("shop.id")
        console.log(shop_id)
-      // console.log("this.likes_shops")
-      //  console.log(this.likes_shops[0])
-      //  console.log(this.likes_shops.map(shop => shop.shop_id))
+       console.log("this.likes_shops")
+       console.log(this.likes_shops)
+       console.log(this.likes_shops.map(shop => shop.shop_id))
        let likes_shop = this.likes_shops.map(shop => shop.shop_id);
 
       //  console.log(likes_shop.includes(shop_id))

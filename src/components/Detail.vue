@@ -99,17 +99,39 @@ props:["id"],
       this.detaildata=response.data;
       console.log(this.detaildata);
     })
+    await axios.get(
+      'http://localhost:8001/api/v1/reservations'
+    )
+    .then((response)=>{
+      console.log(response);
+    })
   } ,
     components:{
     Header,
   },
   methods:{
-    booking() {
-        this.$router.replace("/thanksreserve");
-      }
+    booking(shop) {
+      axios
+      .post(
+       'http://localhost:8001/api/v1/' +shop.id+'/reservations',{
+        user_id:this.$store.state.user.id,
+        shop_id:this.shop.id,
+        reservation_date:this.bookingDate,
+        reservation_time:this.bookingTime,
+        reservation_number:this.bookingNumber
+      })
+    .then((response)=>{
+      console.log("response")
+      console.log(response)
+    })
+        // this.$router.replace("/thanksreserve");
+      // }
+    }
   }
 }
 </script>
+
+
 <style scoped>
 
 .flex{
