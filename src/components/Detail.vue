@@ -22,8 +22,8 @@
      <div class="right">
         <div class="booking-container">
           <form>
-            <input type="date" v-model="bookingDate">
-            <select name="bookingTime" v-model="bookingTime">
+            <input type="date" v-model="reservation_date">
+            <select name="reservation_time" v-model="reservation_time">
               <option value="17:00">17:00</option>
               <option value="17:30">17:30</option>
               <option value="18:00">18:00</option>
@@ -34,7 +34,7 @@
               <option value="20:30">20:30</option>
               <option value="21:00">21:00</option>
             </select>
-            <select name="bookingNumber" v-model="bookingNumber">
+            <select name="reservation_number" v-model="reservation_number">
               <option value="1" disabled>1人</option>
               <option value="2">2人</option>
               <option value="3">3人</option>
@@ -56,18 +56,20 @@
             </div>
             <div class="flex">
               <p class="name-item">Date</p>
-              <p class="booking-date">{{bookingDate}}</p>
+              <p class="booking-date">{{reservation_date}}</p>
             </div>
             <div class="flex">
               <p class="name-item">Time</p>
-              <p class="booking-time">{{bookingTime}}</p>
+              <p class="booking-time">{{reservation_time}}</p>
             </div>
             <div class="flex">
               <p class="name-item">Number</p>
-              <p class="number">{{bookingNumber}}人</p>
+              <p class="number">{{reservation_number}}人</p>
             </div>
           </div>
-          <button @click="booking()">予約する</button>
+          <div class="shop" v-for="(shop,index) in detaildata" :key="index">
+            <button @click="reservation(shop)">予約する</button>
+          </div>
         </div>
       </div>
     </div>
@@ -82,9 +84,9 @@ export default {
 props:["id"],
   data(){
     return{
-      bookingDate:"",
-      bookingTime:"",
-      bookingNumber:"",
+      reservation_date:"",
+      reservation_time:"",
+      reservation_number:"",
       detaildata:[{
       name:"",
       }],
@@ -110,22 +112,22 @@ props:["id"],
     Header,
   },
   methods:{
-    booking(shop) {
+    reservation(shop) {
       axios
       .post(
-       'http://localhost:8001/api/v1/' +shop.id+'/reservations',{
+       'http://localhost:8001/api/v1/reservations',{
         user_id:this.$store.state.user.id,
-        shop_id:this.shop.id,
-        reservation_date:this.bookingDate,
-        reservation_time:this.bookingTime,
-        reservation_number:this.bookingNumber
+        shop_id:shop.id,
+        reservation_date:this.reservation_date,
+        reservation_time:this.reservation_time,
+        reservation_number:this.reservation_number
       })
     .then((response)=>{
       console.log("response")
-      console.log(response)
+      console.log(response);
+      this.$router.replace("/thanksreserve");
     })
-        // this.$router.replace("/thanksreserve");
-      // }
+      
     }
   }
 }

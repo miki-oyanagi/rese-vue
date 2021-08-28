@@ -19,7 +19,7 @@
           <div class="detail2">
             <button @click="gotodetail(shop)" class="button">詳しくみる</button>
             <div v-if="isActive(shop.id)">
-              <button class="btn-warning"  @click.prevent="dislike()">いいね済<i class="fi-heart"></i></button>
+              <button class="btn-warning"  @click.prevent="dislike(shop)">いいね済<i class="fi-heart"></i></button>
            </div>
            <div v-else>
               <button class="btn-outline-warning" @click.prevent="like(shop)"><i class="fi-heart">いいね</i></button>
@@ -84,24 +84,28 @@ export default {
         })
         .then((response)=>{
           console.log(response);
+          this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
+         });
         });
      },
-     dislike(){
+     dislike(shop){
        axios
        .delete("http://localhost:8001/api/v1/likes",{
          data:{
            user_id:this.$store.state.user.id,
-           shop_id:this.shop,
+           shop_id:shop.id,
            }  
        })
        .then((response)=>{
          this.likes_shops2 =response.data;
          console.log("this.likes_shops2");
          console.log(this.likes_shops2);
-        //  this.$router.go({
-        //     path: this.$router.currentRoute.path,
-        //     force: true,
-        //  });
+         this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
+         });
        })
 
 
