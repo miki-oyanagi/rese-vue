@@ -63,12 +63,8 @@ export default {
       })
       .then((response)=>{
         this.likes_shops = response.data.data;
-        // console.log("this.likes_shops")
+        console.log("this.likes_shops")
         console.log(this.likes_shops);
-        // this.$router.go({
-        //   path: this.$router.currentRoute.path,
-        //   force: true,
-        // });
       })
         
     },
@@ -78,9 +74,9 @@ export default {
       },
       like(shop){
         axios
-        .post("http://localhost:8001/api/v1/shops/" + shop.id + "/likes",{
+        .post("http://localhost:8001/api/v1/like",{
           user_id:this.$store.state.user.id,
-          shop_id:this.shop,
+          shop_id:shop.id,
         })
         .then((response)=>{
           console.log(response);
@@ -92,7 +88,7 @@ export default {
      },
      dislike(shop){
        axios
-       .delete("http://localhost:8001/api/v1/likes",{
+       .delete("http://localhost:8001/api/v1/like",{
          data:{
            user_id:this.$store.state.user.id,
            shop_id:shop.id,
