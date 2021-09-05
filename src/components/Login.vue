@@ -9,7 +9,9 @@
    <div class="form">
      <i class="fi-mail"></i><input type="email" placeholder="Email" class="input" v-model="email"><div class="underline"></div><br>
      <i class="fi-lock"></i><input type="password" placeholder="Password" class="input" v-model="password"><div class="underline"></div><br>
+     <button class="button" @click="register">新規登録</button>
      <button class="button" @click="auth">ログイン</button>
+
    </div>
  </div>
 </div>
@@ -34,6 +36,9 @@ export default {
         email: this.email,
         password: this.password
       });
+    },
+    register(){
+       this.$router.replace('/registration')
     }
   }
 };
