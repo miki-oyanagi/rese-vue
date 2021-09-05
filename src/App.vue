@@ -1,11 +1,24 @@
 <template>
   <div id="app">
     <div id="nav">
-      
+      <Shop></Shop>
     </div>
     <router-view/>
   </div>
 </template>
+
+
+
+<script>
+ import Shop from './views/Shop.vue'
+export default {
+   components:{
+     Shop,
+  },
+}
+</script>
+
+
 
 <style>
 #app {
