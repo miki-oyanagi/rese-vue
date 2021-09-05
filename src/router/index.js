@@ -31,7 +31,7 @@ const routes = [
     name: 'Shop',
     component: Shop,
     meta:{
-      requiresAuth:true,
+      requiresAuth:true
     }
   },
   {
@@ -60,7 +60,8 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/login',
+  // base: process.env.BASE_URL,
   routes,
 });
 
