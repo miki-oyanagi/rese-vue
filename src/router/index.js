@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Registration from '../components/Registration.vue'
-import Login from '../components/Login.vue'
+import Login from '../views/Login.vue'
 import Shop from '../views/Shop.vue'
 import Thankspage from '../components/Thankspage.vue'
 import Detail from '../components/Detail.vue'
@@ -22,12 +22,12 @@ const routes = [
     component: Registration
   },
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: Login
   },
   {
-    path: '/',
+    path: '/shop',
     name: 'Shop',
     component: Shop,
     meta:{

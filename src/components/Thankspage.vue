@@ -10,7 +10,7 @@
 export default{
   methods:{
     login(){
-      this.$router.replace("/login")
+      this.$router.replace("/")
     }
   }
 }
