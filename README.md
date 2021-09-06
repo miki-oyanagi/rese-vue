@@ -1,24 +1,19 @@
 # rese
 
-## Project setup
+## 概要
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+Vue.jsとlaravelの学習のために作成した、レストラン予約アプリです。
 ```
 
-### Compiles and minifies for production
+### 機能
 ```
-npm run build
+・ログイン
+・ショップ一覧の表示
+・ショップの詳細確認
+・ショップのお気に入り
+・ショップの予約
 ```
-
-### Lints and fixes files
+#### 作成情報
 ```
-npm run lint
+・作成者：miki
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
