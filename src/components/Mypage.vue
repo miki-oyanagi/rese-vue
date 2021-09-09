@@ -61,7 +61,7 @@ export default {
       
     },
     async created(){
-      await axios.post("http://localhost:8001/api/v1/mypage/reservations",{
+      await axios.post("https://safe-coast-57138.herokuapp.com/api/v1/mypage/reservations",{
         user_id:this.$store.state.user.id,
       }
     )
@@ -72,24 +72,13 @@ export default {
     }),
     
 
-     axios.post("http://localhost:8001/api/v1/likes",{//いいね済のshop_id取得
+     axios.post("https://safe-coast-57138.herokuapp.com/api/v1/likes",{//いいね済のshop_id取得
        user_id:this.$store.state.user.id,
       })
       .then((response)=>{
         this.shops= response.data.data
         console.log(this.shops);
       })
-    //   axios.post("http://localhost:8001/api/v1/getshops",{//いいねのshop_idを元に必要な情報を取得する
-    //     id:this.shops.shop_id
-    //   }
-    // )
-    // .then((response)=>{
-    //   console.log(response);
-    //   this.likes=response.data;
-    //   console.log("this.likes");
-    //   console.log(this.likes);
-    // })
-
     },
     methods:{
         async gotodetail(shop){

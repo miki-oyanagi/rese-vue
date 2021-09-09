@@ -3,7 +3,7 @@
    <div class="left">
      <div>
        <Header></Header>
-       <a href="http://localhost:8080/shop" class="back">＜＜back</a>
+       <a href="https://priceless-shockley-366842.netlify.app/shop" class="back">＜＜back</a>
      </div>
      <div class="shop" v-for="(shop,index) in detaildata" :key="index">
       <div class="wrap2">
@@ -96,7 +96,7 @@ props:["id"],
   },
   async created(){
     await axios.get(
-      'http://localhost:8001/api/v1/shops/'+this.id
+      'https://safe-coast-57138.herokuapp.com/api/v1/shops/'+this.id
     )
     .then((response)=>{
       console.log(response);
@@ -104,7 +104,7 @@ props:["id"],
       console.log(this.detaildata);
     })
     await axios.get(
-      'http://localhost:8001/api/v1/reservations'
+      'https://safe-coast-57138.herokuapp.com/api/v1/reservations'
     )
     .then((response)=>{
       console.log(response);
@@ -117,7 +117,7 @@ props:["id"],
     reservation(shop) {
       axios
       .post(
-       'http://localhost:8001/api/v1/reservations',{
+       'https://safe-coast-57138.herokuapp.com/api/v1/reservations',{
         user_id:this.$store.state.user.id,
         shop_id:shop.id,
         reservation_date:this.reservation_date,
