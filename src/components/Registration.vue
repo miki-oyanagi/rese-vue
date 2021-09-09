@@ -24,7 +24,7 @@ export default {
   methods:{
     auth(){
       axios
-      .post("http://localhost:8001/api/v1/users/registration",{
+      .post("https://safe-coast-57138.herokuapp.com/api/v1/users/registration",{
         user_name:this.user_name,
         email:this.email,
         password:this.password
