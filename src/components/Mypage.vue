@@ -2,14 +2,16 @@
 <div>
   <div class="header">
     <Header></Header>
-    <h2>mypage</h2>
+    <h2>mypage</h2><br>
+    
   </div>
   <div>
-    <h3 class="username" > {{user_name}} さん </h3>
+    <router-link to="/shop" class="shoplist">back to shoplist</router-link> 
+    <h3 class="username" >ログインユーザー： {{user_name}}  </h3>
   </div>
   <div class="flex">
     <div class="reservation">
-     <p>予約情報</p>
+     <h2>予約情報</h2>
     <div class="reservations" v-for="(reservation,index) in reservations" :key="index">
       <p>Shop： {{reservation.shop.name}}</p><br>
       <p>Date： {{reservation.reservation_date}}</p><br>
@@ -19,7 +21,7 @@
 
     </div>
     <div class="favorite">
-      <p>お気に入り店舗</p>
+      <h2>お気に入り店舗</h2>
       <div class="shop" v-for="(shop,index) in shops" :key="index">
           <div class="image">
             <a><img class="img" :src="shop.shop.image"></a>
@@ -68,6 +70,7 @@ export default {
       this.reservations=response.data.data;
       console.log(this.reservations);
     }),
+    
 
      axios.post("http://localhost:8001/api/v1/likes",{//いいね済のshop_id取得
        user_id:this.$store.state.user.id,
@@ -91,7 +94,10 @@ export default {
     methods:{
         async gotodetail(shop){
         this.$router.push({path: '/detail/'+ shop.shop_id});
-      }
+      },
+        shoplist(){
+       this.$router.replace('/shop')
+       },
     }
 
 }
@@ -101,6 +107,7 @@ export default {
 
 <style scoped>
 .username{
+  margin-right: 15%;
  text-align: right;
 }
 .flex{
@@ -108,18 +115,31 @@ export default {
 }
 .reservation{
   width: 50%;
+  margin-left: 10%;
 }
+
 .favorite{
   width: 50%;
+  margin-right: 10%;
 }
 .img{
   width: 40%;
   height: auto;
-  /* border-radius:  10px 10px 0px 0px; */
+  border-radius: 10px 10px;
+
 }
 .reservations{
   background-color: cornflowerblue;
-  width: 60%;
+  width: 50%;
   margin: auto;
+  border-radius: 10px 10px;
+}
+
+.shoplist{
+  border: none;
+  background-color: white;
+  font-size: 20px;
+  text-align: right;
+  text-decoration: none;
 }
 </style>

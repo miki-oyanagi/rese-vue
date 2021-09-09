@@ -71,7 +71,7 @@ export default {
   border-bottom: 1px solid black;
 }
 .button{
-  margin: 0% 0 10% 30%;
+  margin: 10%;
   background-color: cornflowerblue;
   border-radius: 5px;
   color: aliceblue;

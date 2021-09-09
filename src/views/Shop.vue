@@ -1,8 +1,11 @@
 <template>
 <div >
   <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
+
   <div class="header">
     <Header></Header>
+    <p class="username" >ログインユーザー： {{user_name}}  </p>
+     <button class="mypage" @click="mypage">Mypage</button>
   </div>
   <div class="wrap">
     <div class="shop" v-for="(shop,index) in shops" :key="index">
@@ -46,11 +49,13 @@ export default {
       }],
       likes_shops:[{
 
-      }]
+      }],
+      active:true,
+      user_name:this.$store.state.user.user_name,
     };
   },
   async created(){
-     await axios.get("http://localhost:8001/api/v1/shops"
+     await axios.get("https://safe-coast-57138.herokuapp.com/api/v1/shops"
     )
     .then((response)=>{
       console.log(response);
@@ -58,7 +63,7 @@ export default {
       console.log(this.shops);
     }),
 
-      axios.post("http://localhost:8001/api/v1/likes",{
+      axios.post("https://safe-coast-57138.herokuapp.com/api/v1/likes",{
         user_id:this.$store.state.user.id,
       })
       .then((response)=>{
@@ -74,7 +79,7 @@ export default {
       },
       like(shop){
         axios
-        .post("http://localhost:8001/api/v1/like",{
+        .post("https://safe-coast-57138.herokuapp.com/api/v1/like",{
           user_id:this.$store.state.user.id,
           shop_id:shop.id,
         })
@@ -85,10 +90,13 @@ export default {
             force: true,
          });
         });
-     },
+       },
+       mypage(){
+       this.$router.replace('/mypage')
+       },
      dislike(shop){
        axios
-       .delete("http://localhost:8001/api/v1/like",{
+       .delete("https://safe-coast-57138.herokuapp.com/api/v1/like",{
          data:{
            user_id:this.$store.state.user.id,
            shop_id:shop.id,
@@ -130,6 +138,14 @@ if(likes_shop.includes(shop_id)){
 </script>
 
 <style scoped>
+.username{
+  width: 100%;
+  font-size: 20px;
+  background-color:white;
+  border: none;
+  color: black;
+}
+
 .header{
   margin-bottom: 5%;
 }
@@ -175,6 +191,14 @@ if(likes_shop.includes(shop_id)){
 }
 .btn-outline-warning{
   border: none;
+}
+
+.mypage{
+  margin-right: 20%;
+  font-size: 20px;
+  background-color:white;
+  border: none;
+  text-decoration: underline;
 }
 
 
