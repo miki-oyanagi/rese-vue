@@ -1,6 +1,6 @@
 <template>
 <div class="header">
-   <i class="fi-clipboard-notes"></i><a href="http://localhost:8080/login">Rese</a>
+   <i class="fi-clipboard-notes"></i><a href="https://priceless-shockley-366842.netlify.app/login">Rese</a>
    <link href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
 </div>
 </template>
